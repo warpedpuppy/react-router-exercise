@@ -1,24 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import Hello from './components/Hello';
+import Goodbye from './components/Goodbye';
+import Colors from './components/Colors';
+import Nav from './components/Nav';
+import NotFound from './components/NotFound';
 
 function App() {
+  let store = { termOfAffection: "lover" }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Nav />
+      <main>
+      <Switch>
+        <Route exact path="/" render={ ({history}) =>{ return <Hello history={history} /> } } />
+        <Route path="/goodbye" render={ () => {return <Goodbye store={store} />} } />
+        <Route path="/colors/:color" component={Colors} />
+        <Route component={NotFound} />
+      </Switch>
+      </main>
     </div>
   );
 }
